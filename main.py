@@ -18,11 +18,11 @@ dataset = pd.concat(listDf, ignore_index=True)
 
 # Check for missing values -> fill with mean
 dataset = dataset.fillna(dataset.mean())
-# print("\nNo missing values anymore (mean replacement):\n", dataset.head())
+print("\nNo missing values anymore (mean replacement):\n", dataset.head())
 
 # Normalization
 dataset = (dataset - dataset.min()) / (dataset.max() - dataset.min())
-# print("\nNormalized data:\n", dataset.head())
+print("\nNormalized data:\n", dataset.head())
 
 # Compute correlation matrix
 correlation_matrix = dataset.corr()
@@ -31,7 +31,7 @@ correlation_matrix = dataset.corr()
 plt.figure(figsize=(10, 8))
 sns.heatmap(correlation_matrix, cmap='coolwarm')
 plt.title("Correlation Matrix Heatmap")
-# plt.show()
+plt.show()
 
 # Define a threshold for "high" correlation
 threshold = 0.3
