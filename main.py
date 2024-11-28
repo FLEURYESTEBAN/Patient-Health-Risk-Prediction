@@ -14,7 +14,7 @@ listDf = []
 for file in os.listdir(path):
     listDf.append(pd.read_csv(os.path.join(path, file)))
 dataset = pd.concat(listDf, ignore_index=True)
-# print("\nRaw data:\n", dataset.head())
+print("\nRaw data:\n", dataset.head())
 
 # Check for missing values -> fill with mean
 dataset = dataset.fillna(dataset.mean())
