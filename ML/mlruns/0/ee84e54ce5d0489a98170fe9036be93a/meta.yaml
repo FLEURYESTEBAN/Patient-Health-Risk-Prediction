@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/ee84e54ce5d0489a98170fe9036be93a/artifacts
+end_time: 1733842788829
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ee84e54ce5d0489a98170fe9036be93a
+run_name: Decision_Tree_Classifier
+run_uuid: ee84e54ce5d0489a98170fe9036be93a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733842769701
+status: 3
+tags: []
+user_id: chart

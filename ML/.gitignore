@@ -1,0 +1,6 @@
+mlartifacts/
+Final_Machine_Learning_Diabetes/mlruns/
+../File_data.csv
+random_forest_diabetes_model.pkl
+*.pkl
+*.csv

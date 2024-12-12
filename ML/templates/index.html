@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diabetes Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .result {
+            grid-column: span 2;
+            padding: 15px;
+            margin-top: 20px;
+            background: #e3f2fd;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            color: #1e88e5;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+        /* Centered container */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header styles */
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 150px;
+        }
+
+        /* Form layout */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form groups for labels and inputs */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="number"], input[type="radio"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+        }
+
+        .tooltip {
+            margin-left: 5px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        /* Button styles */
+        button {
+            grid-column: span 2;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            background-color: #4285f4;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #2a69d8;
+            transform: scale(1.05);
+        }
+
+        /* Footer styles */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Results area */
+        .result {
+            grid-column: span 2;
+            padding: 10px;
+            margin-top: 20px;
+            background: #f1f1f1;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='img/diabete_logo.png') }}" alt="Diabetes Predictor Logo" class="logo">
+
+        <h1>Diabetes Prediction Form</h1>
+        <form method="POST" action="/predict">
+            <div class="form-group">
+                <label for="HighBP">HighBP:</label>
+                <span class="tooltip" title="High Blood Pressure (0: No, 1: Yes)">?</span>
+                <input type="number" name="HighBP">
+            </div>
+            <div class="form-group">
+                <label for="HighChol">HighChol:</label>
+                <span class="tooltip" title="High Cholesterol (0: No, 1: Yes)">?</span>
+                <input type="number" name="HighChol">
+            </div>
+            <div class="form-group">
+                <label for="CholCheck">CholCheck:</label>
+                <span class="tooltip" title="Cholesterol Check (0: No, 1: Yes)">?</span>
+                <input type="number" name="CholCheck">
+            </div>
+            <div class="form-group">
+                <label for="BMI">BMI:</label>
+                <span class="tooltip" title="Body Mass Index">?</span>
+                <input type="number" name="BMI">
+            </div>
+            <div class="form-group">
+                <label for="Smoker">Smoker:</label>
+                <span class="tooltip" title="Smoker (0: No, 1: Yes)">?</span>
+                <input type="number" name="Smoker">
+            </div>
+            <div class="form-group">
+                <label for="Stroke">Stroke:</label>
+                <span class="tooltip" title="Stroke (0: No, 1: Yes)">?</span>
+                <input type="number" name="Stroke">
+            </div>
+            <div class="form-group">
+                <label for="HeartDiseaseorAttack">Heart Disease or Attack:</label>
+                <span class="tooltip" title="Heart Disease or Attack (0: No, 1: Yes)">?</span>
+                <input type="number" name="HeartDiseaseorAttack">
+            </div>
+            <div class="form-group">
+                <label for="PhysActivity">Physical Activity:</label>
+                <span class="tooltip" title="Physical Activity (0: No, 1: Yes)">?</span>
+                <input type="number" name="PhysActivity">
+            </div>
+            <div class="form-group">
+                <label for="Fruits">Fruits:</label>
+                <span class="tooltip" title="Fruits (0: No, 1: Yes)">?</span>
+                <input type="number" name="Fruits">
+            </div>
+            <div class="form-group">
+                <label for="Veggies">Veggies:</label>
+                <span class="tooltip" title="Veggies (0: No, 1: Yes)">?</span>
+                <input type="number" name="Veggies">
+            </div>
+            <div class="form-group">
+                <label for="HvyAlcoholConsump">Heavy Alcohol Consumption:</label>
+                <span class="tooltip" title="Heavy Alcohol Consumption (0: No, 1: Yes)">?</span>
+                <input type="number" name="HvyAlcoholConsump">
+            </div>
+            <div class="form-group">
+                <label for="AnyHealthcare">Any Healthcare:</label>
+                <span class="tooltip" title="Any Healthcare (0: No, 1: Yes)">?</span>
+                <input type="number" name="AnyHealthcare">
+            </div>
+            <div class="form-group">
+                <label for="NoDocbcCost">No Doctor Because of Cost:</label>
+                <span class="tooltip" title="No Doctor Because of Cost (0: No, 1: Yes)">?</span>
+                <input type="number" name="NoDocbcCost">
+            </div>
+            <div class="form-group">
+                <label for="GenHlth">General Health:</label>
+                <span class="tooltip" title="General Health (1: Excellent, 5: Poor)">?</span>
+                <input type="number" name="GenHlth">
+            </div>
+            <div class="form-group">
+                <label for="MentHlth">Mental Health Days:</label>
+                <span class="tooltip" title="Number of poor mental health days in the past month">?</span>
+                <input type="number" name="MentHlth">
+            </div>
+            <div class="form-group">
+                <label for="PhysHlth">Physical Health Days:</label>
+                <span class="tooltip" title="Number of poor physical health days in the past month">?</span>
+                <input type="number" name="PhysHlth">
+            </div>
+            <div class="form-group">
+                <label for="DiffWalk">Difficulty Walking:</label>
+                <span class="tooltip" title="Difficulty Walking (0: No, 1: Yes)">?</span>
+                <input type="number" name="DiffWalk">
+            </div>
+            <div class="form-group">
+                <label for="Sex">Sex:</label>
+                <span class="tooltip" title="Sex (0: Female, 1: Male)">?</span>
+                <input type="number" name="Sex">
+            </div>
+            <div class="form-group">
+                <label for="Age">Age:</label>
+                <span class="tooltip" title="Age group (1: 18-24, ..., 13: 80 or older)">?</span>
+                <input type="number" name="Age">
+            </div>
+            <div class="form-group">
+                <label for="Education">Education Level:</label>
+                <span class="tooltip" title="Education level (1: Never attended, ..., 6: College graduate)">?</span>
+                <input type="number" name="Education">
+            </div>
+            <div class="form-group">
+                <label for="Income">Income Level:</label>
+                <span class="tooltip" title="Income level (1: Less than $10,000, ..., 8: $75,000 or more)">?</span>
+                <input type="number" name="Income">
+            </div>
+
+            <button type="submit">Predict</button>
+            <div id="result" class="result"></div>
+        </form>
+        <footer>
+            <p>Powered by Flask and Random Forest Model</p>
+            <p>
+                <a href="https://github.com/your-repo">GitHub Repo</a> |
+                <a href="/about">About Us</a>
+            </p>
+        </footer>
+    </div>
+    <script>
+       const form = document.getElementById('prediction-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    const prediction = result.Prediction;
+                    const message = result.Message;
+
+                    // Update the result div with proper styling
+                    document.getElementById('result').innerHTML = `
+                        <strong>Prediction Result:</strong><br><br>
+                        <span style="font-size: 1.5rem; color: #1e88e5; font-weight: bold;">${prediction}</span><br><br>
+                        <p style="font-size: 1.2rem; color: #333;">${message}</p>
+                    `;
+                } else {
+                    document.getElementById('result').innerText = `Error: ${result.error}`;
+                }
+            } catch (error) {
+                document.getElementById('result').innerText = 'An error occurred while processing the request.';
+            }
+        });
+
+    </script>
+</body>
+</html>
+
