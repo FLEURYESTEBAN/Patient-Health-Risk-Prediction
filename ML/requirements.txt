@@ -1,7 +1,0 @@
-pandas
-seaborn
-matplotlib
-scikit-learn
-imbalanced-learn
-kagglehub
-tensorflow
